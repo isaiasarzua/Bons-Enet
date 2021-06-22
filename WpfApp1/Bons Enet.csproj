@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Bons_Enet</RootNamespace>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\562008-resident-evil-0-nintendo-switch-front-cover.jpg" />
+    <None Remove="Resources\DragDropArrow.png" />
+    <None Remove="Resources\fortnite.jpg" />
+    <None Remove="Resources\googleicon.png" />
+    <None Remove="Resources\MBIICover.jpg" />
+    <None Remove="Resources\Mk11Cover.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\562008-resident-evil-0-nintendo-switch-front-cover.jpg" />
+    <Resource Include="Resources\DragDropArrow.png" />
+    <Resource Include="Resources\fortnite.jpg" />
+    <Resource Include="Resources\googleicon.png" />
+    <Resource Include="Resources\Mk11Cover.jpg" />
+    <Resource Include="Resources\MBIICover.jpg" />
+  </ItemGroup>
+
+</Project>
