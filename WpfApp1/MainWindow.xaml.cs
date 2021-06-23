@@ -23,12 +23,47 @@ namespace Bons_Enet
             InitializeComponent();
             _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
             _timer.Tick += _timer_Tick;
+
+
+            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
+            ni.Icon = new System.Drawing.Icon("../../../Resources/MainIcon.ico");
+            ni.Visible = true;
+            ni.DoubleClick +=
+                delegate (object sender, EventArgs args)
+                {
+                    this.Show();
+                    this.WindowState = WindowState.Normal;
+                };
         }
 
         void _timer_Tick(object sender, EventArgs e)
         {
             DisplayControllerInformation();
         }
+
+
+        // Minimize to system tray when application is minimized.
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized)
+                this.Hide();
+
+            base.OnStateChanged(e);
+        }
+
+        // Minimize to system tray when application is closed.
+        //protected override void OnClosing(CancelEventArgs e)
+        //{
+        //    // setting cancel to true will cancel the close request
+        //    // so the application is not closed
+        //    e.Cancel = true;
+
+        //    this.Hide();
+
+        //    base.OnClosing(e);
+        //}
+
+
 
         void DisplayControllerInformation()
         {
@@ -38,26 +73,6 @@ namespace Bons_Enet
             //Buttons = string.Format("A: {0} B: {1} X: {2} Y: {3}", state.Gamepad.Buttons.ToString(), state.Gamepad.LeftThumbY);
             Buttons = string.Format("{0}", state.Gamepad.Buttons);
 
-        }
-
-        // Minimize to system tray when application is minimized.
-        protected override void OnStateChanged(EventArgs e)
-        {
-            if (WindowState == WindowState.Minimized) this.Hide();
-
-            base.OnStateChanged(e);
-        }
-
-        // Minimize to system tray when application is closed.
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            // setting cancel to true will cancel the close request
-            // so the application is not closed
-            e.Cancel = true;
-
-            this.Hide();
-
-            base.OnClosing(e);
         }
 
         void MainWindow_Closing(object sender, CancelEventArgs e)
@@ -79,7 +94,7 @@ namespace Bons_Enet
         private void CloseCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             //if (MessageBox.Show("Close?", "Close", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            this.Close();
+            Close();
         }
 
 

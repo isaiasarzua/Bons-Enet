@@ -58,7 +58,7 @@ namespace Bons_Enet.CustomControls
             myProcess.Start();
 
             var window = (MainWindow)Application.Current.MainWindow;
-            window.WindowState = WindowState.Minimized;
+            window.Hide();
         }
     }
 }
