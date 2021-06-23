@@ -1,9 +1,4 @@
-﻿using Bons_Enet.CustomControls;
-using Bons_Enet.Resources;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
 
 namespace Bons_Enet.ViewModel
 {

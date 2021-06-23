@@ -1,9 +1,6 @@
-﻿using Bons_Enet.Resources;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Bons_Enet.CustomControls
@@ -59,6 +56,9 @@ namespace Bons_Enet.CustomControls
             myProcess.StartInfo.UseShellExecute = false;
             myProcess.StartInfo.FileName = ExePath;
             myProcess.Start();
+
+            var window = (MainWindow)Application.Current.MainWindow;
+            window.WindowState = WindowState.Minimized;
         }
     }
 }
