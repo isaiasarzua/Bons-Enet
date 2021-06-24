@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Threading;
 using SharpDX.XInput;
 
@@ -14,6 +16,9 @@ namespace Bons_Enet
         private string _rightAxis;
         private string _buttons;
         private Controller _controller;
+        private NotifyIcon notifyIcon;
+
+        void p() { }
 
         public MainWindow()
         {
@@ -25,28 +30,58 @@ namespace Bons_Enet
             _timer.Tick += _timer_Tick;
 
 
-            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
-            ni.Icon = new System.Drawing.Icon("../../../Resources/MainIcon.ico");
-            ni.Visible = true;
-            ni.DoubleClick +=
-                delegate (object sender, EventArgs args)
-                {
-                    this.Show();
-                    this.WindowState = WindowState.Normal;
-                };
+            // NotifyIcon
+            notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = new System.Drawing.Icon("../../../Resources/MainIcon.ico");
+            notifyIcon.Visible = true;
+            notifyIcon.Text = "Downloading Resident Evil Budakai - 1.12/kbs - ETA: 1h44m"; // Use this when not playing a game and downloading
+            notifyIcon.Text = "Currently playing Mortal Kombat 10"; // Use this when playing a game
+            notifyIcon.Text = "Ready to play"; // Default
+
+            notifyIcon.ContextMenuStrip = new ContextMenuStrip();
+
+            // Add items directly to contextmenu
+            notifyIcon.ContextMenuStrip.Items.Add("Quit Application", null, new EventHandler((obj, args) => Close()));
+            notifyIcon.MouseClick += notifyIcon_MouseClick;
+
+            // Ballontip
+            notifyIcon.BalloonTipTitle = "Resident Evil 0 Download Complete"; // Use this when "auto install" is set to false
+            notifyIcon.BalloonTipText = "Click to install"; // Use this when "auto install" is set to false. Clicking this prompt will start the installation
+            notifyIcon.BalloonTipClicked += notifyIconBalloon_Click;
+            notifyIcon.ShowBalloonTip(3);
         }
+
+        #region NotifyIcon
+        private void notifyIconBalloon_Click(object sender, EventArgs e)
+        {
+            Show();
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                Show();
+        }
+        #endregion
 
         void _timer_Tick(object sender, EventArgs e)
         {
             DisplayControllerInformation();
         }
 
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            ContextMenu NotifyIconMenu = (ContextMenu)this.FindResource("NotifyIconMenu");
+            if (NotifyIconMenu.IsOpen == true)
+                NotifyIconMenu.IsOpen = false;
+            base.OnLostFocus(e);
+        }
 
         // Minimize to system tray when application is minimized.
         protected override void OnStateChanged(EventArgs e)
         {
             if (WindowState == WindowState.Minimized)
-                this.Hide();
+                Hide();
 
             base.OnStateChanged(e);
         }
@@ -88,7 +123,7 @@ namespace Bons_Enet
                 _timer.Start();
                 return;
             }
-            MessageBox.Show("Game Controller is not connected ... you know ;)");
+            System.Windows.MessageBox.Show("Game Controller is not connected ... you know ;)");
         }
 
         private void CloseCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
