@@ -1,12 +1,6 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows.Media;
-
-namespace Bons_Enet
+﻿namespace Bons_Enet
 {
-    public class GameModel { }
-
-    public class Game : INotifyPropertyChanged
+    public class GameModel
     {
         string title;
         string exePath;
@@ -26,7 +20,6 @@ namespace Bons_Enet
                 if (title != value)
                 {
                     title = value;
-                    RaisePropertyChanged("Title");
                 }
             }
         }
@@ -40,7 +33,6 @@ namespace Bons_Enet
                 if (completed != value)
                 {
                     completed = value;
-                    RaisePropertyChanged("Completed");
                 }
             }
         }
@@ -54,7 +46,6 @@ namespace Bons_Enet
                 if (exePath != value)
                 {
                     exePath = value;
-                    RaisePropertyChanged("ExePath");
                 }
             }
         }
@@ -67,20 +58,8 @@ namespace Bons_Enet
             {
                 if (ImagePath != value)
                 {
-                    imagePath = "../Resources/" + value;
-                    RaisePropertyChanged("LastName");
-                    RaisePropertyChanged("FullName");
+                    imagePath = value;
                 }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
     }

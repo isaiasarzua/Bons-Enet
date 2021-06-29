@@ -86,7 +86,7 @@
                 <Button x:Name="introLoadRefBtn" 
                         Content="Load a game executable..."
                         VerticalAlignment="Center"
-                        Click="introLoadRefBtn_Click"/>
+                        Click="LoadGame_Click"/>
             </StackPanel>
         </Border>
 

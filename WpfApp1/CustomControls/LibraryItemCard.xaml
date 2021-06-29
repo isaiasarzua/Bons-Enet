@@ -67,7 +67,7 @@
                                 Grid.Row="0">
                                 <Border.Background>
                                     <ImageBrush
-                                        ImageSource="{Binding ImageSource, ElementName=This}"
+                                        ImageSource="{Binding ImagePath, ElementName=This}"
                                         Stretch="UniformToFill"/>
                                 </Border.Background>
                             </Border>

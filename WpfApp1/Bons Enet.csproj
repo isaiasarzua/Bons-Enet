@@ -10,21 +10,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Resources\562008-resident-evil-0-nintendo-switch-front-cover.jpg" />
 		<None Remove="Resources\DragDropArrow.png" />
-		<None Remove="Resources\MBIICover.jpg" />
-		<None Remove="Resources\Mk11Cover.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="SharpDX.XInput" Version="4.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\562008-resident-evil-0-nintendo-switch-front-cover.jpg" />
 		<Resource Include="Resources\DragDropArrow.png" />
-		<Resource Include="Resources\Mk11Cover.jpg" />
-		<Resource Include="Resources\MBIICover.jpg" />
 	</ItemGroup>
 
 </Project>

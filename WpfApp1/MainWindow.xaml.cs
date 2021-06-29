@@ -18,8 +18,6 @@ namespace Bons_Enet
         private Controller _controller;
         private NotifyIcon notifyIcon;
 
-        void p() { }
-
         public MainWindow()
         {
             DataContext = this;
@@ -49,6 +47,12 @@ namespace Bons_Enet
             notifyIcon.BalloonTipText = "Click to install"; // Use this when "auto install" is set to false. Clicking this prompt will start the installation
             notifyIcon.BalloonTipClicked += notifyIconBalloon_Click;
             notifyIcon.ShowBalloonTip(3);
+
+
+
+            //Start testing HTTPClient
+            HTTPClient httpClient = new HTTPClient();
+            //httpClient.SendPost();
         }
 
         #region NotifyIcon

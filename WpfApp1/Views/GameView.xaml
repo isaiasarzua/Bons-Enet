@@ -15,7 +15,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <customControls:LibraryItemCard
-                            ImageSource="{Binding Path = ImagePath}"
+                            ImagePath="{Binding Path = ImagePath}"
                             Title="{Binding Path = Title}"
                             ExePath="{Binding Path = ExePath}"
                             />

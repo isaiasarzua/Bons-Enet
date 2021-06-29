@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Bons_Enet.CustomControls
 {
@@ -15,15 +17,15 @@ namespace Bons_Enet.CustomControls
             InitializeComponent();
         }
 
-        public ImageSource ImageSource
+        public BitmapImage ImagePath
         {
-            get => (ImageSource)GetValue(ImageSourceProperty);
-            set => SetValue(ImageSourceProperty, value);
+            get => (BitmapImage)GetValue(ImagePathProperty);
+            set => SetValue(ImagePathProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(LibraryItemCard));
+        public static readonly DependencyProperty ImagePathProperty =
+            DependencyProperty.Register("ImagePath", typeof(string), typeof(LibraryItemCard));
 
         public string Title
         {
@@ -35,8 +37,6 @@ namespace Bons_Enet.CustomControls
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(LibraryItemCard));
 
-
-
         public string ExePath
         {
             get => (string)GetValue(ExePathProperty);
@@ -47,11 +47,11 @@ namespace Bons_Enet.CustomControls
         public static readonly DependencyProperty ExePathProperty =
             DependencyProperty.Register("ExePath", typeof(string), typeof(LibraryItemCard));
 
+
+
+
         private void StartGame(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine(Title);
-            Debug.WriteLine(ExePath);
-
             Process myProcess = new Process();
             myProcess.StartInfo.UseShellExecute = false;
             myProcess.StartInfo.FileName = ExePath;
