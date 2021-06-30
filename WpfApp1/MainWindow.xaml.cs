@@ -27,7 +27,7 @@ namespace Bons_Enet
             _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
             _timer.Tick += _timer_Tick;
 
-
+            #region NotifyIcon and Ballontip
             // NotifyIcon
             notifyIcon = new NotifyIcon();
             notifyIcon.Icon = new System.Drawing.Icon("../../../Resources/MainIcon.ico");
@@ -47,15 +47,14 @@ namespace Bons_Enet
             notifyIcon.BalloonTipText = "Click to install"; // Use this when "auto install" is set to false. Clicking this prompt will start the installation
             notifyIcon.BalloonTipClicked += notifyIconBalloon_Click;
             notifyIcon.ShowBalloonTip(3);
+            #endregion
 
-
-
-            //Start testing HTTPClient
-            HTTPClient httpClient = new HTTPClient();
+            // Check api for access token
+            //HTTPClient httpClient = new HTTPClient();
             //httpClient.SendPost();
         }
 
-        #region NotifyIcon
+        #region NotifyIcon Functions
         private void notifyIconBalloon_Click(object sender, EventArgs e)
         {
             Show();
@@ -73,6 +72,7 @@ namespace Bons_Enet
             DisplayControllerInformation();
         }
 
+        #region MainWindow State handling        
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             ContextMenu NotifyIconMenu = (ContextMenu)this.FindResource("NotifyIconMenu");
@@ -89,31 +89,6 @@ namespace Bons_Enet
 
             base.OnStateChanged(e);
         }
-
-        // Minimize to system tray when application is closed.
-        //protected override void OnClosing(CancelEventArgs e)
-        //{
-        //    // setting cancel to true will cancel the close request
-        //    // so the application is not closed
-        //    e.Cancel = true;
-
-        //    this.Hide();
-
-        //    base.OnClosing(e);
-        //}
-
-
-
-        void DisplayControllerInformation()
-        {
-            var state = _controller.GetState();
-            LeftAxis = string.Format("X: {0} Y: {1}", state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY);
-            RightAxis = string.Format("X: {0} Y: {1}", state.Gamepad.RightThumbX, state.Gamepad.RightThumbX);
-            //Buttons = string.Format("A: {0} B: {1} X: {2} Y: {3}", state.Gamepad.Buttons.ToString(), state.Gamepad.LeftThumbY);
-            Buttons = string.Format("{0}", state.Gamepad.Buttons);
-
-        }
-
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             _controller = null;
@@ -130,21 +105,29 @@ namespace Bons_Enet
             System.Windows.MessageBox.Show("Game Controller is not connected ... you know ;)");
         }
 
+        // Close program with 'ESC' key binded in MainWindow.xaml
         private void CloseCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             //if (MessageBox.Show("Close?", "Close", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             Close();
         }
+        #endregion
 
+        // Should be in it's own class
+        #region Xbox Controller Support
+        void DisplayControllerInformation()
+        {
+            var state = _controller.GetState();
+            LeftAxis = string.Format("X: {0} Y: {1}", state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY);
+            RightAxis = string.Format("X: {0} Y: {1}", state.Gamepad.RightThumbX, state.Gamepad.RightThumbX);
+            //Buttons = string.Format("A: {0} B: {1} X: {2} Y: {3}", state.Gamepad.Buttons.ToString(), state.Gamepad.LeftThumbY);
+            Buttons = string.Format("{0}", state.Gamepad.Buttons);
 
-        #region Properties
-
+        }
+        #region Controller Properties
         public string LeftAxis
         {
-            get
-            {
-                return _leftAxis;
-            }
+            get { return _leftAxis; }
             set
             {
                 if (value == _leftAxis) return;
@@ -155,10 +138,7 @@ namespace Bons_Enet
 
         public string RightAxis
         {
-            get
-            {
-                return _rightAxis;
-            }
+            get { return _rightAxis; }
             set
             {
                 if (value == _rightAxis) return;
@@ -169,10 +149,7 @@ namespace Bons_Enet
 
         public string Buttons
         {
-            get
-            {
-                return _buttons;
-            }
+            get { return _buttons; }
             set
             {
                 if (value == _buttons) return;
@@ -189,6 +166,7 @@ namespace Bons_Enet
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        #endregion
         #endregion
     }
 }

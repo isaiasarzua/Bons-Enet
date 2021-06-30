@@ -8,25 +8,22 @@
              d:DesignHeight="450" d:DesignWidth="800" >
 
 
-    <Grid>
-        <ItemsControl ItemsSource="{Binding Games}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 Background="Transparent">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <customControls:LibraryItemCard
-                            ImagePath="{Binding Path = ImagePath}"
+    <ItemsControl ItemsSource="{Binding Games}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Background="DarkSlateGray" Margin="5px">
+                    <customControls:LibraryItemCard
+                            CoverImage="{Binding Path = CoverImage}"
                             Title="{Binding Path = Title}"
                             ExePath="{Binding Path = ExePath}"
                             />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True" Orientation="Horizontal" HorizontalAlignment="Center"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-    </Grid>
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel IsItemsHost="True" Orientation="Horizontal" HorizontalAlignment="Center"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
 </UserControl>

@@ -14,11 +14,8 @@ namespace Bons_Enet.ViewModel
         {
             ObservableCollection<GameModel> loadedGames = new ObservableCollection<GameModel>();
 
-            //loadedGames.Add(new GameModel { Title = "Resident Evil 0", Completed = false });
-            loadedGames.Add(new GameModel { Title = "Mount and Blade II", Completed = true, ImagePath = "MBIICover.jpg" });
-            loadedGames.Add(new GameModel { Title = "Mortal Kombat 11", Completed = false, ImagePath = "Mk11Cover.jpg" });
-            loadedGames.Add(new GameModel { Title = "Mount and Blade II", Completed = true, ImagePath = "MBIICover.jpg" });
-            loadedGames.Add(new GameModel { Title = "Mortal Kombat 11", Completed = false, ImagePath = "Mk11Cover.jpg" });
+            loadedGames.Add(new GameModel { Title = "Mount and Blade II", Completed = true, CoverImage = "MBIICover.jpg", TimePlayed = 0 });
+            loadedGames.Add(new GameModel { Title = "Mortal Kombat 11", Completed = false, CoverImage = "Mk11Cover.jpg", TimePlayed = 0 });
 
             Games = loadedGames;
         }

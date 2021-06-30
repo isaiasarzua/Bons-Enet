@@ -26,19 +26,15 @@ namespace Bons_Enet
                 Content = new StringContent($"search \"{title}\"; fields name, cover.url;", Encoding.UTF8, "application/json") //choose fields and name of game here
             };
 
-
-
             // deserialize json
             var response = client.SendAsync(httpRequestMessage).Result;
             JArray obj = JsonConvert.DeserializeObject<JArray>(response.Content.ReadAsStringAsync().Result);
 
-            string newTitle = "";
             string imgPathResult;
             // replace 'thumb' with '720p' to get higher res cover art
             string pattern;
             string replace;
             string result;
-            string imagePath = ""; // add http: since path does not come with it in api
 
             // if the title is not found, api returns an empty json rather than error, so check to see if json is empty
             if (obj.Count > 0)
@@ -50,7 +46,7 @@ namespace Bons_Enet
                 pattern = @"thumb";
                 replace = "720p";
                 result = System.Text.RegularExpressions.Regex.Replace(imgPathResult, pattern, replace);
-                newGame.ImagePath = "http:" + result; // add http: since path does not come with it in api            // right now all we need is the name and cover so these references are fine,
+                newGame.CoverImage = "http:" + result; // add http: since path does not come with it in api
                 return true;
             }
             else

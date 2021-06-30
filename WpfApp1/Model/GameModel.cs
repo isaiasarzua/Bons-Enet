@@ -5,15 +5,12 @@
         string title;
         string exePath;
         bool completed;
-        string imagePath;
+        string coverImage;
         float timePlayed;
 
         public string Title
         {
-            get
-            {
-                return title;
-            }
+            get { return title; }
 
             set
             {
@@ -50,15 +47,28 @@
             }
         }
 
-        public string ImagePath
+        public string CoverImage
         {
-            get { return imagePath; }
+            get { return coverImage; }
 
             set
             {
-                if (ImagePath != value)
+                if (CoverImage != value)
                 {
-                    imagePath = value;
+                    coverImage = value;
+                }
+            }
+        }
+
+        public float TimePlayed
+        {
+            get { return timePlayed; }
+
+            set
+            {
+                if (TimePlayed != value)
+                {
+                    timePlayed = value;
                 }
             }
         }

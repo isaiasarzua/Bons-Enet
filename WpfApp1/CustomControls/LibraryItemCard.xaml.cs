@@ -1,8 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Bons_Enet.CustomControls
@@ -17,15 +15,15 @@ namespace Bons_Enet.CustomControls
             InitializeComponent();
         }
 
-        public BitmapImage ImagePath
+        public BitmapImage CoverImage
         {
-            get => (BitmapImage)GetValue(ImagePathProperty);
-            set => SetValue(ImagePathProperty, value);
+            get => (BitmapImage)GetValue(CoverImageProperty);
+            set => SetValue(CoverImageProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ImagePathProperty =
-            DependencyProperty.Register("ImagePath", typeof(string), typeof(LibraryItemCard));
+        public static readonly DependencyProperty CoverImageProperty =
+            DependencyProperty.Register("CoverImage", typeof(string), typeof(LibraryItemCard));
 
         public string Title
         {
@@ -46,8 +44,6 @@ namespace Bons_Enet.CustomControls
         // Using a DependencyProperty as the backing store for exePath.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ExePathProperty =
             DependencyProperty.Register("ExePath", typeof(string), typeof(LibraryItemCard));
-
-
 
 
         private void StartGame(object sender, RoutedEventArgs e)

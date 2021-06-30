@@ -45,25 +45,27 @@ namespace Bons_Enet.Pages
             {
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(o.FileName);
 
-                Debug.WriteLine(myFileVersionInfo.ProductName); //looks like product name will be good for searching with
-                Debug.WriteLine(myFileVersionInfo.FileName);
-                Debug.WriteLine(o.FileName);
-                Debug.WriteLine(o.SafeFileName);
+                Debug.WriteLine("myFileVersionInfo.ProductName: " + myFileVersionInfo.ProductName); //looks like product name will be good for searching with
+                Debug.WriteLine("myFileVersionInfo.FileName: " + myFileVersionInfo.FileName);
+                Debug.WriteLine("o.FileName: " + o.FileName);
+                Debug.WriteLine("o.SafeFileName: " + o.SafeFileName);
 
                 HTTPClient httpClient = new HTTPClient();
-
                 GameModel newGame;
-
-                if (httpClient.FoundGameInDB("earth defense force 5", out newGame))
+                if (httpClient.FoundGameInDB(myFileVersionInfo.ProductName, out newGame))
                 {
+                    newGame.ExePath = o.FileName;
                     gameViewModelObject.Games.Add(newGame);
                 }
+                else
+                {
+                    Debug.WriteLine("Did not find " + myFileVersionInfo.ProductName + " in idgb. Adding app information from given exe file");
+                    newGame.Title = myFileVersionInfo.ProductName;
+                    newGame.ExePath = o.FileName;
+                    //newGame.ImagePath = defaultCoverPath; - need to add a default cover image for when idgb is not available, maybe just use app icon as cover image?
 
-                //GameModel NewGame = httpClient.newGame();
-
-                //NewGame.ExePath = o.FileName;
-
-                //gameViewModelObject.Games.Add(NewGame);
+                    gameViewModelObject.Games.Add(newGame);
+                }
             }
         }
     }
