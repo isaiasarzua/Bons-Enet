@@ -1,12 +1,15 @@
-﻿namespace Bons_Enet
+﻿using System.Windows.Media;
+
+namespace Bons_Enet
 {
     public class GameModel
     {
         string title;
         string exePath;
         bool completed;
-        string coverImage;
+        string coverPath;
         float timePlayed;
+        ImageSource coverSource;
 
         public string Title
         {
@@ -47,15 +50,15 @@
             }
         }
 
-        public string CoverImage
+        public string CoverPath
         {
-            get { return coverImage; }
+            get { return coverPath; }
 
             set
             {
-                if (CoverImage != value)
+                if (CoverPath != value)
                 {
-                    coverImage = value;
+                    coverPath = value;
                 }
             }
         }
@@ -69,6 +72,19 @@
                 if (TimePlayed != value)
                 {
                     timePlayed = value;
+                }
+            }
+        }
+
+        public ImageSource CoverSource
+        {
+            get { return coverSource; }
+
+            set
+            {
+                if (coverSource != value)
+                {
+                    coverSource = value;
                 }
             }
         }

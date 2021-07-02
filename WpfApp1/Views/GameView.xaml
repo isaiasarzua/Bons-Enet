@@ -13,7 +13,7 @@
             <DataTemplate>
                 <StackPanel Background="DarkSlateGray" Margin="5px">
                     <customControls:LibraryItemCard
-                            CoverImage="{Binding Path = CoverImage}"
+                            CoverImage="{Binding Path = CoverPath, Source = CoverSource}"
                             Title="{Binding Path = Title}"
                             ExePath="{Binding Path = ExePath}"
                             />

@@ -46,7 +46,7 @@ namespace Bons_Enet
                 pattern = @"thumb";
                 replace = "720p";
                 result = System.Text.RegularExpressions.Regex.Replace(imgPathResult, pattern, replace);
-                newGame.CoverImage = "http:" + result; // add http: since path does not come with it in api
+                newGame.CoverPath = "http:" + result; // add http: since path does not come with it in api
                 return true;
             }
             else

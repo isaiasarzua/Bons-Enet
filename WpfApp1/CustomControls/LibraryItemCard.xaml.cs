@@ -53,8 +53,7 @@ namespace Bons_Enet.CustomControls
             myProcess.StartInfo.FileName = ExePath;
             myProcess.Start();
 
-            var window = (MainWindow)Application.Current.MainWindow;
-            window.Hide();
+            Application.Current.MainWindow.Hide();
         }
     }
 }

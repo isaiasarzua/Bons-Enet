@@ -52,6 +52,7 @@ namespace Bons_Enet.Pages
 
                 HTTPClient httpClient = new HTTPClient();
                 GameModel newGame;
+
                 if (httpClient.FoundGameInDB(myFileVersionInfo.ProductName, out newGame))
                 {
                     newGame.ExePath = o.FileName;
@@ -62,7 +63,9 @@ namespace Bons_Enet.Pages
                     Debug.WriteLine("Did not find " + myFileVersionInfo.ProductName + " in idgb. Adding app information from given exe file");
                     newGame.Title = myFileVersionInfo.ProductName;
                     newGame.ExePath = o.FileName;
-                    //newGame.ImagePath = defaultCoverPath; - need to add a default cover image for when idgb is not available, maybe just use app icon as cover image?
+                    newGame.CoverPath = defaultCoverPath; // -need to add a default cover image for when idgb is not available, maybe just use app icon as cover image ?
+
+                   newGame.CoverSource = Utils.ConvertIconToImageSource.ToImageSource(o.FileName);
 
                     gameViewModelObject.Games.Add(newGame);
                 }
