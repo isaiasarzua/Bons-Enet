@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Bons_Enet
 {
@@ -76,17 +78,22 @@ namespace Bons_Enet
             }
         }
 
-        public ImageSource CoverSource
+        public BitmapImage CoverImage
         {
-            get { return coverSource; }
+            //get => if (CoverPath != value) new BitmapImage(new Uri(CoverPath, UriKind.Absolute));
 
-            set
-            {
-                if (coverSource != value)
-                {
-                    coverSource = value;
-                }
-            }
+            //get
+            //{
+            //    if (CoverPath != null)
+            //    {
+            //        BitmapImage img = new BitmapImage(new Uri(CoverPath, UriKind.Absolute));
+            //        return img;
+            //    }
+            //    else
+            //        return null;
+            //}
+
+            get => CoverPath != null ? new BitmapImage(new Uri(CoverPath, UriKind.Absolute)) : null;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Bons_Enet.CustomControls
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CoverImageProperty =
-            DependencyProperty.Register("CoverImage", typeof(string), typeof(LibraryItemCard));
+            DependencyProperty.Register("CoverImage", typeof(BitmapImage), typeof(LibraryItemCard));
 
         public string Title
         {
@@ -49,7 +49,7 @@ namespace Bons_Enet.CustomControls
         private void StartGame(object sender, RoutedEventArgs e)
         {
             Process myProcess = new Process();
-            myProcess.StartInfo.UseShellExecute = false;
+            myProcess.StartInfo.UseShellExecute = true;
             myProcess.StartInfo.FileName = ExePath;
             myProcess.Start();
 

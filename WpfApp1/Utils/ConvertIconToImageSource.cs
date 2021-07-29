@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -28,7 +29,7 @@ namespace Bons_Enet.Utils
 
             return imageSource;
         }
-        public static string ToImageSource(this string path)
+        public static string ToImageSourceString(this string path)
         {
             Icon icon = Icon.ExtractAssociatedIcon(path);
 
@@ -37,9 +38,9 @@ namespace Bons_Enet.Utils
                  Int32Rect.Empty,
                  BitmapSizeOptions.FromEmptyOptions());
 
-            BitmapImage test = (BitmapImage)imageSource;
-
-            return test.UriSource;
+            //Bitmap test = new Bitmap(imageSource);
+            BitmapImage test = imageSource as BitmapImage;
+            return test.UriSource.ToString();
         }
     }
 }

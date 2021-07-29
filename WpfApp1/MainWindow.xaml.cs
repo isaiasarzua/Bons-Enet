@@ -50,7 +50,7 @@ namespace Bons_Enet
             #endregion
 
             // Check api for access token
-            //HTTPClient httpClient = new HTTPClient();
+            HTTPClient httpClient = new HTTPClient();
             //httpClient.SendPost();
         }
 

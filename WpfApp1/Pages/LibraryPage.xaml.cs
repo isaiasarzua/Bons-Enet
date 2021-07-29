@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -38,34 +39,50 @@ namespace Bons_Enet.Pages
         {
             OpenFileDialog o = new OpenFileDialog();
             o.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            o.Title = "Select the game's exe file or shortcut file (This does not support Steam files)";
+            o.Title = "Select the game's exe file or shortcut file (Does not support Steam files)";
             o.Filter = "Executable or Shortcut (*.exe, *.lnk) | *.exe";
             o.DereferenceLinks = true;
             if ((bool)o.ShowDialog())
             {
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(o.FileName);
 
-                Debug.WriteLine("myFileVersionInfo.ProductName: " + myFileVersionInfo.ProductName); //looks like product name will be good for searching with
-                Debug.WriteLine("myFileVersionInfo.FileName: " + myFileVersionInfo.FileName);
-                Debug.WriteLine("o.FileName: " + o.FileName);
-                Debug.WriteLine("o.SafeFileName: " + o.SafeFileName);
+                FileInfo file = new FileInfo(o.FileName);
 
                 HTTPClient httpClient = new HTTPClient();
                 GameModel newGame;
 
+                // Search idgb using oroduct name, file description and target location
                 if (httpClient.FoundGameInDB(myFileVersionInfo.ProductName, out newGame))
+                {
+                    newGame.ExePath = o.FileName;
+                    gameViewModelObject.Games.Add(newGame);
+                }
+                else if (httpClient.FoundGameInDB(myFileVersionInfo.FileDescription, out newGame))
+                {
+                    newGame.ExePath = o.FileName;
+                    gameViewModelObject.Games.Add(newGame);
+                }
+                else if (httpClient.FoundGameInDB(file.Directory.Name, out newGame)) //search using the name of the folder the exe is in (hoping that folders are organized by name)
+                {
+                    newGame.ExePath = o.FileName;
+                    gameViewModelObject.Games.Add(newGame);
+                }
+                else if (httpClient.FoundGameInDB(file.Name, out newGame)) //as a last resort search using the name the exe/shortcut file
                 {
                     newGame.ExePath = o.FileName;
                     gameViewModelObject.Games.Add(newGame);
                 }
                 else
                 {
-                    Debug.WriteLine("Did not find " + myFileVersionInfo.ProductName + " in idgb. Adding app information from given exe file");
-                    newGame.Title = myFileVersionInfo.ProductName;
+                    // future update: if game is not found in igdb, prompt user with a search box to manually enter title.
+                    //if search box still does not find game, allow user to enter game title and art manually.
+                    Debug.WriteLine("Could not find " + file.Name + " in idgb. Adding app information from given exe file");
+                    newGame.Title = file.Name;
                     newGame.ExePath = o.FileName;
-                    newGame.CoverPath = defaultCoverPath; // -need to add a default cover image for when idgb is not available, maybe just use app icon as cover image ?
 
-                   newGame.CoverSource = Utils.ConvertIconToImageSource.ToImageSource(o.FileName);
+                    // -need to add a default cover image for when idgb is not available, maybe just use app icon as cover image ?
+                    //newGame.CoverPath = Utils.ConvertIconToImageSource.ToImageSourceString(o.FileName); 
+                    //newGame.CoverSource = Utils.ConvertIconToImageSource.ToImageSource(o.FileName);
 
                     gameViewModelObject.Games.Add(newGame);
                 }
